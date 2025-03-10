@@ -6,11 +6,12 @@ To develop a neural network regression model for the given dataset.
 
 ## THEORY
 
-Explain the problem statement
+It consists of an input layer with 1 neuron, two hidden layers with 8 neurons in the first layer and 10 neurons in the second layer, and an output layer with 1 neuron. Each neuron in one layer is connected to all neurons in the next layer, allowing the model to learn complex patterns. The hidden layers use activation functions such as ReLU to introduce non-linearity, enabling the network to capture intricate relationships within the data. 
+During training, the model adjusts its weights and biases using optimization techniques like RMSprop or Adam, minimizing a loss function such as Mean Squared Error for regression.The forward propagation process involves computing weighted sums, applying activation functions, and passing the transformed data through layer.
 
 ## Neural Network Model
 
-Include the neural network model diagram.
+![image](https://github.com/user-attachments/assets/4e51783a-39ef-4737-a58d-3a58d1aa5caf)
 
 ## DESIGN STEPS
 
@@ -43,40 +44,56 @@ Plot the performance plot
 Evaluate the model with the testing data.
 
 ## PROGRAM
-### Name:
-### Register Number:
+### Name: SRIRAM S S
+### Register Number: 2122222301S0
 ```python
 class NeuralNet(nn.Module):
-    def __init__(self):
+  def __init__(self):
         super().__init__()
-        #Include your code here
+        self.fc1 = nn.Linear(1, 8)
+        self.fc2 = nn.Linear(8, 10)
+        self.fc3 = nn.Linear(10, 1)
+        self.relu = nn.ReLU()
+        self.history = {'loss': []}
 
-
-
-# Initialize the Model, Loss Function, and Optimizer
-
-
-
-def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
-    #Include your code here
-
-
-
+  def forward(self, x):
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
 ```
+```python
+ai_brain = NeuralNet ()
+criterion = nn. MSELoss ()
+optimizer = optim.RMSprop (ai_brain. parameters(), lr=0.001)
+```
+
+```python
+def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=4000) :
+  for epoch in range (epochs) :
+    optimizer. zero_grad()
+    loss = criterion(ai_brain(X_train), y_train)
+    loss. backward()
+    optimizer.step()
+    ai_brain. history['loss'] .append(loss.item())
+    if epoch % 200 == 0:
+      print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
+```
+
 ## Dataset Information
 
-Include screenshot of the dataset
+![image](https://github.com/user-attachments/assets/821c2331-6983-4538-ab4b-9265340f8c1e)
 
 ## OUTPUT
 
 ### Training Loss Vs Iteration Plot
 
-Include your plot here
+![image](https://github.com/user-attachments/assets/c783cb1e-df4e-4182-8ba3-522854921f7c)
 
 ### New Sample Data Prediction
 
-Include your sample input and output here
+![image](https://github.com/user-attachments/assets/52fe09cf-5bf9-4754-83ed-605d5730ce8b)
 
 ## RESULT
 
-Include your result here
+Thus a neural network regression model is developed successfully.The model demonstrated strong predictive performance on unseen data, with a low error rate.
